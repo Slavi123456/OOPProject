@@ -1,6 +1,7 @@
 #pragma once
 #include <fstream>
 
+constexpr int CHAR_ARRAY_SIZE = 200;
 enum class Ganre {
 	undefined, 
 	unknown,
@@ -11,8 +12,11 @@ enum class Ganre {
 
 class Book {
 public:
-	//big Six
-	Book(const char* authorName, const char* bookName, int publishedYear, double rating, Ganre ganre = Ganre::unknown);
+	//big Six / and the logic for the file system for the dynamic memory
+	//there is linker problem if there is no function implementation 
+	Book() = default;
+	Book(const char* authorName, const char* bookName, int publishedYear, double rating, int uniqueLibraryNum);// Ganre ganre = Ganre::unknown);
+	~Book();
 
 	void SetRaiting(double raiting);
 	//Set for the keywords, description
@@ -25,31 +29,33 @@ public:
 	int GetUniqueLibraryNum() const;
 	double GetRaing() const;
 	Ganre GetBookGanre() const;
-	char* GetAuthorName() const; //can it be const char*
-	char* GetBookName() const; //can it be const char*
+	const char* GetAuthorName() const; 
+	const char* GetBookName() const; //can it be const char* //the compiler wants it
 	//Get for the keywords, description
 
 private:
 	//how was the consiquence of the type for better memory management
-	char _authorName[200];//will it be better to be dynamic memory //more memory -> better performance
-	char _bookName[200];
+	char _authorName[200] = "";//will it be better to be dynamic memory //more memory -> better performance
+	char _bookName[200] = ""; //why does this not work if its made in the constructor
 	//char** _description;
 	//char** _keyWords;
-	Ganre _ganre;
-	int _publishedYear;
-	int _uniqueLibraryNum;
-	double _rating;
+	Ganre _ganre = Ganre::undefined;
+	int _publishedYear = 0;
+	int _uniqueLibraryNum = 0;
+	double _rating = 0.0;
 
 	void SetPublishedYear(int publishedYear);
-	Ganre SetBookGanre(Ganre ganre);
-	void SetAuthorName(const char * authorName);
-	void SetBookName(const char* bookName);
+	void SetBookGanre(Ganre ganre);
+	void SetAuthorName(const char * authorName); 
+	void SetBookName(const char* bookName); //is it better to have it also for right value 
 
 	friend std::istream& operator >>(std::istream& is, Book& book);
+	friend std::ifstream& operator>>(std::ifstream& ifs, Book& book);
 };
 
 std::ostream& operator <<(std::ostream& os, const Book& book);
-
+std::ofstream& operator<<(std::ofstream& os, const Book& book); //is it better to be in binary /////////
+void outputDetailedBook(const Book& book); 
 
 //Всяка книга се характеризира със  следните данни :
 //
