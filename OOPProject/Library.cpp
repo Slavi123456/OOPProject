@@ -25,6 +25,20 @@ void Library::addBook()
 
 }
 
+void Library::addBook(const Book& newBook)
+{
+	_bookListFilled++;
+	_booksList[_bookListFilled] = newBook;
+	_booksList[_bookListFilled].SetUniqueLibraryNum(_bookListFilled);
+}
+
+void Library::addBook(Book&& newBook)
+{
+	_bookListFilled++;
+	_booksList[_bookListFilled] = newBook;
+	_booksList[_bookListFilled].SetUniqueLibraryNum(_bookListFilled);
+}
+
 void Library::removeBook(int uniqueNumber)
 {
 	//try-catch for the uniqueNumber

@@ -46,8 +46,6 @@ public:
 	char** GetKeyWords() const;
 	//Get for the keywords, description
 
-	void InitializeBook(const char* authorName, const char* bookName, int publishedYear, double rating);
-	void InitializeBook(const char* authorName, const char* bookName, int publishedYear, double rating, int uniqueLibraryNum);
 	void InitializeBook(const char* authorName, const char* bookName, int publishedYear, double rating, int uniqueLibraryNum = 0, Ganre ganre = Ganre::unknown);
 	void ClearBook();
 private:
@@ -66,14 +64,15 @@ private:
 	void free();
 	void moveFrom(Book&& other);
 	void copyFrom(const Book& other);
-	void resize();
+	void resizeForDescription(int sizeDescription);
+	void resizeForKeyWords(int countKeyWords);
 
 	void SetPublishedYear(int publishedYear);
 	void SetBookGanre(Ganre ganre);
 	void SetAuthorName(const char * authorName); 
 	void SetBookName(const char* bookName); //is it better to have it also for right value 
 	void SetDescription(const char* description, int sizeDescription);
-	void SetKeyWords(char** description, int countKeyWords);//why can't be const char**
+	void SetKeyWords(char** keywords, int countKeyWords);//why can't be const char**
 
 	friend std::istream& operator >>(std::istream& is, Book& book);
 	friend std::ifstream& operator>>(std::ifstream& ifs, Book& book);
@@ -83,6 +82,8 @@ private:
 //OUTPUT/INPUT FUNCTIONS
 std::ostream& operator <<(std::ostream& os, const Book& book);
 std::ofstream& operator<<(std::ofstream& os, const Book& book); //is it better to be in binary /////////
+bool operator == (const Book& lhs, const Book& rhs);
+bool operator != (const Book& lhs, const Book& rhs);
 void outputDetailedBook(const Book& book); 
 char** split(const char* str, int count);
 //Всяка книга се характеризира със  следните данни :

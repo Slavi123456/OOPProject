@@ -26,18 +26,12 @@ Book::Book(const char* authorName, const char* bookName,const char* description,
 	}
 	//add keywords
 }
-
 Book::Book(const Book& other)
 {
 	copyFrom(other);
 }
-
 Book& Book::operator=(const Book& other)
 {
-	if (true)
-	{
-		//checks for different size and resize
-	}
 	if (this != &other)
 	{
 		free();
@@ -45,13 +39,8 @@ Book& Book::operator=(const Book& other)
 	}
 	return *this;
 }
-
 Book& Book::operator=(Book&& other)
 {
-	if (true)
-	{
-		//checks for different size and resize
-	}
 	if (this != &other)
 	{
 		free();
@@ -59,12 +48,10 @@ Book& Book::operator=(Book&& other)
 	}
 	return *this;
 }
-
 Book::Book(Book&& other)
 {
 	moveFrom(std::move(other));
 }
-
 Book::~Book()
 {
 	//you can delete only pointers
@@ -104,6 +91,7 @@ void Book::moveFrom(Book&& other)
 }
 void Book::copyFrom(const Book& other)
 {
+	//if i start calling Set functions for all of them the callstack will be bigger so this is faster//I think
 	strcpy_s(_authorName, CHAR_ARRAY_SIZE, other.GetAuthorName()); 
 	strcpy_s(_bookName, CHAR_ARRAY_SIZE, other.GetBookName());
 	_publishedYear = other.GetPublishedYear();
@@ -121,6 +109,42 @@ void Book::copyFrom(const Book& other)
 		_keyWords[i] = new char[strlen(other.GetKeyWords()[i]) + 1];
 		strcpy_s(_keyWords[i], strlen(other.GetKeyWords()[i]) + 1, other.GetKeyWords()[i]);
 	}
+}
+void Book::resizeForDescription(int sizeDescription)
+{
+	char* newDescription = new char[sizeDescription + 1]; 
+	
+	_sizeDescription = sizeDescription + 1;//more general function for copying because SetDescription it's same
+	newDescription = new char[_sizeDescription]; 
+	strcpy_s(_description, _sizeDescription, newDescription);
+
+	delete[]_description;
+	_description = newDescription;
+
+	delete[]newDescription;
+}
+void Book::resizeForKeyWords(int countKeyWords)
+{
+	char** newKeyWords = new char* [countKeyWords];
+	for (size_t i = 0; i < _countKeyWords; i++)
+	{
+		int keyWordLen = strlen(_keyWords[i]) + 1;
+		newKeyWords[i] = new char[keyWordLen];//do i need to check every word lenght of the incoming **
+		strcpy_s(newKeyWords[i], keyWordLen, _keyWords[i]);
+	}
+
+	for (size_t i = 0; i < _countKeyWords; i++)
+	{
+		delete[]_keyWords[i];
+	}
+	delete[]_keyWords;
+	_keyWords = newKeyWords;
+	_countKeyWords = countKeyWords;
+	for (size_t i = 0; i < countKeyWords; i++)
+	{
+		delete[]newKeyWords[i];
+	}
+	delete[]newKeyWords;
 }
 ///////////////////////////////////////////////////////////////////////////////////////
 //GET, SET FUNCTIONS
@@ -167,23 +191,6 @@ char** Book::GetKeyWords() const
 }
 
 //why doesn't work with default paramaters ///
-void Book::InitializeBook(const char* authorName, const char* bookName, int publishedYear, double rating) // int uniqueLibraryNum = 0, Ganre ganre = Ganre::unknown)
-{
-	//try-catch for the lenght of the authorName and bookName
-	strcpy_s(_authorName, CHAR_ARRAY_SIZE, authorName); //How to fix "strcpy" may be unsafe ///
-	strcpy_s(_bookName, CHAR_ARRAY_SIZE, bookName);
-	_publishedYear = publishedYear;
-	_rating = rating;
-}
-void Book::InitializeBook(const char* authorName, const char* bookName, int publishedYear, double rating, int uniqueLibraryNum)
-{
-	//try-catch for the lenght of the authorName and bookName
-	strcpy_s(_authorName, CHAR_ARRAY_SIZE, authorName); 
-	strcpy_s(_bookName, CHAR_ARRAY_SIZE, bookName);
-	_publishedYear = publishedYear;
-	_rating = rating;
-	_uniqueLibraryNum = uniqueLibraryNum;
-}
 void Book::InitializeBook(const char* authorName, const char* bookName, int publishedYear, double rating, int uniqueLibraryNum, Ganre ganre)
 {
 	//try-catch for the lenght of the authorName and bookName
@@ -191,6 +198,8 @@ void Book::InitializeBook(const char* authorName, const char* bookName, int publ
 	strcpy_s(_bookName, CHAR_ARRAY_SIZE, bookName);
 	_publishedYear = publishedYear;
 	_rating = rating;
+	_uniqueLibraryNum = uniqueLibraryNum;
+	_ganre = ganre;
 }
 void Book::ClearBook()
 {
@@ -315,7 +324,6 @@ std::ofstream& operator<<(std::ofstream& os, const Book& book)
 	return os;
 }
 
-
 //that's friendly to have acces to the SetFunctions
 std::istream& operator>>(std::istream& is, Book& book) //maybe switch std::cout to is ////////// more generelized
 {
@@ -434,6 +442,46 @@ std::ifstream& operator>>(std::ifstream& ifs, Book& book) {
 	return ifs;
 }
 ///////////////////////////////////////////////////////////////////////////////////////
+
+
+bool operator==(const Book& lhs, const Book& rhs)
+{
+	bool isSame = lhs.GetBookGanre() == rhs.GetBookGanre()
+		&& lhs.GetPublishedYear() == rhs.GetPublishedYear()
+		&& lhs.GetUniqueLibraryNum() == rhs.GetUniqueLibraryNum()
+		&& lhs.GetRaing() == rhs.GetRaing();
+	if (isSame == false)
+	{
+		return false;
+	}
+	isSame = strcmp(lhs.GetAuthorName(), rhs.GetAuthorName()) == 0
+		&& strcmp(lhs.GetBookName(), rhs.GetBookName()) == 0
+		&& strcmp(lhs.GetDescription(), rhs.GetDescription()) == 0;
+	if (isSame == false)
+	{
+		return false;
+	}
+	isSame = lhs.GetCountKeyWords() == rhs.GetCountKeyWords();
+	if (isSame == false)
+	{
+		return false;
+	}
+	char** lhsKeyWords = lhs.GetKeyWords();
+	char** rhsKeyWords = rhs.GetKeyWords();
+	for (size_t i = 0; i < lhs.GetCountKeyWords(); i++)
+	{
+		isSame = strcmp(lhsKeyWords[i], rhsKeyWords[i]) == 0;
+		if (isSame == false)
+		{
+			return false;
+		}
+	}
+	return isSame;
+}
+bool operator!=(const Book& lhs, const Book& rhs)
+{
+	return !(lhs == rhs);
+}
 
 char** split(const char* str, int count) {
 	// Копиране на оригиналния низ, за да не го модифицираме директно
