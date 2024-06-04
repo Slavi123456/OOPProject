@@ -84,16 +84,8 @@ std::ostream& operator <<(std::ostream& os, const Book& book);
 std::ofstream& operator<<(std::ofstream& os, const Book& book); //is it better to be in binary /////////
 bool operator == (const Book& lhs, const Book& rhs);
 bool operator != (const Book& lhs, const Book& rhs);
+
 void outputDetailedBook(const Book& book); 
 char** split(const char* str, int count);
-//Âñÿêà êíèãà ñå õàðàêòåðèçèðà ñúñ  ñëåäíèòå äàííè :
-//
-//àâòîð
-//çàãëàâèå
-//æàíð
-//êðàòêî îïèñàíèå
-//ãîäèíà íà èçäàâàíå
-//êëþ÷îâè äóìè
-//ðåéòèíã
-//óíèêàëåí íîìåð çà áèáëèîòåêàòà
+
 

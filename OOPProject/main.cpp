@@ -91,17 +91,20 @@ void testCaseLibraryForAccount() {
 
 	//delete[]userName;
 }
-int main(){
-	//testCaseLibraryForBook();
-	//testCaseBook();
-	//testCaseAccount();
-	//testCaseLibraryForAccount();
-
+void testCaseProgramManager() {
 	ProgramManager program;
 	program.Open("library.txt");
 	program.SetFilePath("library.txt");
 	program.Save();
 	program.SaveAs("library1.txt");
+}
+
+int main(){
+	//testCaseLibraryForBook();
+	//testCaseBook();
+	//testCaseAccount();
+	//testCaseLibraryForAccount();
+	testCaseProgramManager();
 
 
 	return 0;

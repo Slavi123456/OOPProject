@@ -497,11 +497,9 @@ bool operator!=(const Book& lhs, const Book& rhs)
 }
 
 char** split(const char* str, int count) {
-	// Êîïèðàíå íà îðèãèíàëíèÿ íèç, çà äà íå ãî ìîäèôèöèðàìå äèðåêòíî
 	char* strCopy = new char[strlen(str) + 1];
 	strcpy_s(strCopy, strlen(str) + 1, str);
 
-	// Ïðåáðîÿâàíå íà äóìèòå
 	count = 0;
 	char* context = nullptr;
 	char* token = strtok_s(strCopy, " ", &context);
@@ -510,10 +508,8 @@ char** split(const char* str, int count) {
 		token = strtok_s(nullptr, " ", &context);
 	}
 
-	// Ñúçäàâàíå íà ìàñèâ îò óêàçàòåëè êúì íèçîâå
 	char** result = new char* [count];
 
-	// Êîïèðàíå íà îðèãèíàëíèÿ íèç îòíîâî, çà äà ãî èçïîëçâàìå ñ strtok_s
 	strcpy_s(strCopy, strlen(str) + 1, str);
 	int index = 0;
 	token = strtok_s(strCopy, " ", &context);
@@ -524,7 +520,7 @@ char** split(const char* str, int count) {
 		token = strtok_s(nullptr, " ", &context);
 	}
 
-	delete[] strCopy; // Îñâîáîæäàâàíå íà âðåìåííî êîïèå
+	delete[] strCopy; 
 
 	return result;
 }

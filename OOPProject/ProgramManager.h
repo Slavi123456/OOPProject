@@ -12,13 +12,13 @@ public:
 
 	void SetFilePath(const char* filePath);
 	
-	void TakeCommand(const char* command);
+	//void TakeCommand(const char* command);
 
 	void Open(const char* filePath);
 	void Save();
 	void SaveAs(const char* filePath);
-	void Help();
-	void Exit();//how to do the exit one
+	//void Help();
+	//void Exit();//how to do the exit one
 
 private:
 	char* _filePath = nullptr;
