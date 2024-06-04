@@ -7,7 +7,7 @@
 Book::Book(const char* authorName, const char* bookName,const char* description, int sizeDescription, const char** keywords, int countKeyWords , int publishedYear, double rating, Ganre ganre)
 {
 	//try-catch for the lenght of the authorName and bookName
-	strcpy_s(_authorName, CHAR_ARRAY_SIZE, authorName); //How to fix "strcpy" may be unsafe
+	strcpy_s(_authorName, CHAR_ARRAY_SIZE, authorName); //How to fix "strcpy" may be unsafe //because writing in vs studio
 	strcpy_s(_bookName, CHAR_ARRAY_SIZE, bookName);
 	_publishedYear = publishedYear;
 	_rating = rating;
@@ -166,7 +166,7 @@ char** Book::GetKeyWords() const
 	return _keyWords;
 }
 
-//why doesn't work with default paramaters ///
+//why doesn't work with default paramaters /// because default parameters are only in the header file 
 void Book::InitializeBook(const char* authorName, const char* bookName, int publishedYear, double rating) // int uniqueLibraryNum = 0, Ganre ganre = Ganre::unknown)
 {
 	//try-catch for the lenght of the authorName and bookName
@@ -436,11 +436,11 @@ std::ifstream& operator>>(std::ifstream& ifs, Book& book) {
 ///////////////////////////////////////////////////////////////////////////////////////
 
 char** split(const char* str, int count) {
-	// Копиране на оригиналния низ, за да не го модифицираме директно
+	// ГЉГ®ГЇГЁГ°Г Г­ГҐ Г­Г  Г®Г°ГЁГЈГЁГ­Г Г«Г­ГЁГї Г­ГЁГ§, Г§Г  Г¤Г  Г­ГҐ ГЈГ® Г¬Г®Г¤ГЁГґГЁГ¶ГЁГ°Г Г¬ГҐ Г¤ГЁГ°ГҐГЄГІГ­Г®
 	char* strCopy = new char[strlen(str) + 1];
 	strcpy_s(strCopy, strlen(str) + 1, str);
 
-	// Преброяване на думите
+	// ГЏГ°ГҐГЎГ°Г®ГїГўГ Г­ГҐ Г­Г  Г¤ГіГ¬ГЁГІГҐ
 	count = 0;
 	char* context = nullptr;
 	char* token = strtok_s(strCopy, " ", &context);
@@ -449,10 +449,10 @@ char** split(const char* str, int count) {
 		token = strtok_s(nullptr, " ", &context);
 	}
 
-	// Създаване на масив от указатели към низове
+	// Г‘ГєГ§Г¤Г ГўГ Г­ГҐ Г­Г  Г¬Г Г±ГЁГў Г®ГІ ГіГЄГ Г§Г ГІГҐГ«ГЁ ГЄГєГ¬ Г­ГЁГ§Г®ГўГҐ
 	char** result = new char* [count];
 
-	// Копиране на оригиналния низ отново, за да го използваме с strtok_s
+	// ГЉГ®ГЇГЁГ°Г Г­ГҐ Г­Г  Г®Г°ГЁГЈГЁГ­Г Г«Г­ГЁГї Г­ГЁГ§ Г®ГІГ­Г®ГўГ®, Г§Г  Г¤Г  ГЈГ® ГЁГ§ГЇГ®Г«Г§ГўГ Г¬ГҐ Г± strtok_s
 	strcpy_s(strCopy, strlen(str) + 1, str);
 	int index = 0;
 	token = strtok_s(strCopy, " ", &context);
@@ -463,7 +463,7 @@ char** split(const char* str, int count) {
 		token = strtok_s(nullptr, " ", &context);
 	}
 
-	delete[] strCopy; // Освобождаване на временно копие
+	delete[] strCopy; // ГЋГ±ГўГ®ГЎГ®Г¦Г¤Г ГўГ Г­ГҐ Г­Г  ГўГ°ГҐГ¬ГҐГ­Г­Г® ГЄГ®ГЇГЁГҐ
 
 	return result;
 }
