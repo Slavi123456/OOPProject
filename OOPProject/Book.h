@@ -53,7 +53,7 @@ public:
 private:
 	//how was the consiquence of the type for better memory management
 	char _authorName[200] = "";//will it be better to be dynamic memory //more memory -> better performance
-	char _bookName[200] = ""; //why does this not work if its made in the constructor
+	char _bookName[200] = ""; //why does this not work if its made in the constructor // because then it need pointer 
 	char* _description = nullptr;
 	char** _keyWords = nullptr;
 	Ganre _ganre = Ganre::undefined;
@@ -71,9 +71,9 @@ private:
 	void SetPublishedYear(int publishedYear);
 	void SetBookGanre(Ganre ganre);
 	void SetAuthorName(const char * authorName); 
-	void SetBookName(const char* bookName); //is it better to have it also for right value 
+	void SetBookName(const char* bookName); //is it better to have it also for right value //no need ptr takes lvalue and rvalue
 	void SetDescription(const char* description, int sizeDescription);
-	void SetKeyWords(char** description, int countKeyWords);//why can't be const char**
+	void SetKeyWords(char** description, int countKeyWords);//why can't be const char** //compile problem because of the ptr so it needs to be const char ** const
 
 	friend std::istream& operator >>(std::istream& is, Book& book);
 	friend std::ifstream& operator>>(std::ifstream& ifs, Book& book);
@@ -85,14 +85,14 @@ std::ostream& operator <<(std::ostream& os, const Book& book);
 std::ofstream& operator<<(std::ofstream& os, const Book& book); //is it better to be in binary /////////
 void outputDetailedBook(const Book& book); 
 char** split(const char* str, int count);
-//Âñÿêà êíèãà ñå õàðàêòåðèçèðà ñúñ  ñëåäíèòå äàííè :
+//Ã‚Ã±Ã¿ÃªÃ  ÃªÃ­Ã¨Ã£Ã  Ã±Ã¥ ÃµÃ Ã°Ã ÃªÃ²Ã¥Ã°Ã¨Ã§Ã¨Ã°Ã  Ã±ÃºÃ±  Ã±Ã«Ã¥Ã¤Ã­Ã¨Ã²Ã¥ Ã¤Ã Ã­Ã­Ã¨ :
 //
-//àâòîð
-//çàãëàâèå
-//æàíð
-//êðàòêî îïèñàíèå
-//ãîäèíà íà èçäàâàíå
-//êëþ÷îâè äóìè
-//ðåéòèíã
-//óíèêàëåí íîìåð çà áèáëèîòåêàòà
+//Ã Ã¢Ã²Ã®Ã°
+//Ã§Ã Ã£Ã«Ã Ã¢Ã¨Ã¥
+//Ã¦Ã Ã­Ã°
+//ÃªÃ°Ã Ã²ÃªÃ® Ã®Ã¯Ã¨Ã±Ã Ã­Ã¨Ã¥
+//Ã£Ã®Ã¤Ã¨Ã­Ã  Ã­Ã  Ã¨Ã§Ã¤Ã Ã¢Ã Ã­Ã¥
+//ÃªÃ«Ã¾Ã·Ã®Ã¢Ã¨ Ã¤Ã³Ã¬Ã¨
+//Ã°Ã¥Ã©Ã²Ã¨Ã­Ã£
+//Ã³Ã­Ã¨ÃªÃ Ã«Ã¥Ã­ Ã­Ã®Ã¬Ã¥Ã° Ã§Ã  Ã¡Ã¨Ã¡Ã«Ã¨Ã®Ã²Ã¥ÃªÃ Ã²Ã 
 
