@@ -191,26 +191,7 @@ char** Book::GetKeyWords() const
 }
 
 
-//why doesn't work with default paramaters ///
 //why doesn't work with default paramaters /// because default parameters are only in the header file 
-void Book::InitializeBook(const char* authorName, const char* bookName, int publishedYear, double rating) // int uniqueLibraryNum = 0, Ganre ganre = Ganre::unknown)
-{
-	//try-catch for the lenght of the authorName and bookName
-	strcpy_s(_authorName, CHAR_ARRAY_SIZE, authorName); //How to fix "strcpy" may be unsafe ///
-	strcpy_s(_bookName, CHAR_ARRAY_SIZE, bookName);
-	_publishedYear = publishedYear;
-	_rating = rating;
-}
-void Book::InitializeBook(const char* authorName, const char* bookName, int publishedYear, double rating, int uniqueLibraryNum)
-{
-	//try-catch for the lenght of the authorName and bookName
-	strcpy_s(_authorName, CHAR_ARRAY_SIZE, authorName); 
-	strcpy_s(_bookName, CHAR_ARRAY_SIZE, bookName);
-	_publishedYear = publishedYear;
-	_rating = rating;
-	_uniqueLibraryNum = uniqueLibraryNum;
-}
->>>>>>> a29b9e99ec954c5935ebc424a776f3f53826fa20
 void Book::InitializeBook(const char* authorName, const char* bookName, int publishedYear, double rating, int uniqueLibraryNum, Ganre ganre)
 {
 	//try-catch for the lenght of the authorName and bookName
@@ -223,7 +204,7 @@ void Book::InitializeBook(const char* authorName, const char* bookName, int publ
 }
 void Book::ClearBook()
 {
-	delete[]this;
+	//delete[]this;
 	//strcpy_s(_authorName, 1, "");
 	//strcpy_s(_bookName, 1, "");
 	//
@@ -233,6 +214,17 @@ void Book::ClearBook()
 	//_publishedYear = 0;
 	//_uniqueLibraryNum = 0;
 	//_rating = 0.0;
+	SetAuthorName(" ");
+	SetBookName(" ");
+	delete[]_description;
+	for (size_t i = 0; i < _countKeyWords; i++)
+	{
+		delete[]_keyWords[i];
+	}
+	delete[]_keyWords;
+	SetBookGanre(Ganre::unknown);
+	SetPublishedYear(0);
+	SetRaiting(0.0);
 }
 
 void Book::SetRaiting(double raiting)
@@ -340,7 +332,6 @@ std::ofstream& operator<<(std::ofstream& os, const Book& book)
 	}
 	keyWordsptr = nullptr;
 
-	os << std::endl;
 	return os;
 }
 
@@ -453,6 +444,8 @@ std::ifstream& operator>>(std::ifstream& ifs, Book& book) {
 		strcpy_s(keyWordsPtr[i], strlen(buffer) + 1, buffer);
 	}
 	book.SetKeyWords(keyWordsPtr, helperVariable);
+	ifs.ignore();
+	ifs.ignore();
 
 	for (size_t i = 0; i < helperVariable; i++)
 	{

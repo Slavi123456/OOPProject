@@ -72,11 +72,7 @@ private:
 	void SetAuthorName(const char * authorName); 
 	void SetBookName(const char* bookName); //is it better to have it also for right value //no need ptr takes lvalue and rvalue
 	void SetDescription(const char* description, int sizeDescription);
-<<<<<<< HEAD
-	void SetKeyWords(char** keywords, int countKeyWords);//why can't be const char**
-=======
-	void SetKeyWords(char** description, int countKeyWords);//why can't be const char** //compile problem because of the ptr so it needs to be const char ** const
->>>>>>> a29b9e99ec954c5935ebc424a776f3f53826fa20
+	void SetKeyWords(char** keywords, int countKeyWords);//why can't be const char** //compile problem because of the ptr so it needs to be const char ** const
 
 	friend std::istream& operator >>(std::istream& is, Book& book);
 	friend std::ifstream& operator>>(std::ifstream& ifs, Book& book);
