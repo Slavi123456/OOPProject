@@ -51,7 +51,7 @@ public:
 private:
 	//how was the consiquence of the type for better memory management
 	char _authorName[200] = "";//will it be better to be dynamic memory //more memory -> better performance
-	char _bookName[200] = ""; //why does this not work if its made in the constructor
+	char _bookName[200] = ""; //why does this not work if its made in the constructor // because then it need pointer 
 	char* _description = nullptr;
 	char** _keyWords = nullptr;
 	Ganre _ganre = Ganre::undefined;
@@ -70,9 +70,13 @@ private:
 	void SetPublishedYear(int publishedYear);
 	void SetBookGanre(Ganre ganre);
 	void SetAuthorName(const char * authorName); 
-	void SetBookName(const char* bookName); //is it better to have it also for right value 
+	void SetBookName(const char* bookName); //is it better to have it also for right value //no need ptr takes lvalue and rvalue
 	void SetDescription(const char* description, int sizeDescription);
+<<<<<<< HEAD
 	void SetKeyWords(char** keywords, int countKeyWords);//why can't be const char**
+=======
+	void SetKeyWords(char** description, int countKeyWords);//why can't be const char** //compile problem because of the ptr so it needs to be const char ** const
+>>>>>>> a29b9e99ec954c5935ebc424a776f3f53826fa20
 
 	friend std::istream& operator >>(std::istream& is, Book& book);
 	friend std::ifstream& operator>>(std::ifstream& ifs, Book& book);
@@ -86,14 +90,14 @@ bool operator == (const Book& lhs, const Book& rhs);
 bool operator != (const Book& lhs, const Book& rhs);
 void outputDetailedBook(const Book& book); 
 char** split(const char* str, int count);
-//Всяка книга се характеризира със  следните данни :
+//Г‚Г±ГїГЄГ  ГЄГ­ГЁГЈГ  Г±ГҐ ГµГ Г°Г ГЄГІГҐГ°ГЁГ§ГЁГ°Г  Г±ГєГ±  Г±Г«ГҐГ¤Г­ГЁГІГҐ Г¤Г Г­Г­ГЁ :
 //
-//автор
-//заглавие
-//жанр
-//кратко описание
-//година на издаване
-//ключови думи
-//рейтинг
-//уникален номер за библиотеката
+//Г ГўГІГ®Г°
+//Г§Г ГЈГ«Г ГўГЁГҐ
+//Г¦Г Г­Г°
+//ГЄГ°Г ГІГЄГ® Г®ГЇГЁГ±Г Г­ГЁГҐ
+//ГЈГ®Г¤ГЁГ­Г  Г­Г  ГЁГ§Г¤Г ГўГ Г­ГҐ
+//ГЄГ«ГѕГ·Г®ГўГЁ Г¤ГіГ¬ГЁ
+//Г°ГҐГ©ГІГЁГ­ГЈ
+//ГіГ­ГЁГЄГ Г«ГҐГ­ Г­Г®Г¬ГҐГ° Г§Г  ГЎГЁГЎГ«ГЁГ®ГІГҐГЄГ ГІГ 
 
