@@ -9,7 +9,7 @@ void LibraryProfile::findBookInLibrary(int uniqueNumber) const
 
 void LibraryProfile::viewAllBooksInLibrary() const
 {
-	for (size_t i = 0; i < _bookListFilled + 1; i++)
+	for (size_t i = 0; i < _bookListFilled; i++)
 	{
 		std::cout << _booksList[i];
 	}

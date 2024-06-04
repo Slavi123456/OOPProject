@@ -37,8 +37,11 @@ Library& Library::operator=(Library&& other)
 
 void Library::free()
 {
+	/*for (size_t i = 0; i < _bookListLenght; i++)
+	{
+		delete[]_booksList[i];
+	}*/
 	delete[]_booksList;
-	_booksList = nullptr;
 
 	delete[]_accountsList;
 	_accountsList = nullptr;

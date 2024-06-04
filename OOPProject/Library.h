@@ -2,10 +2,9 @@
 #include "Book.h"
 #include "Account.h"
 
-class Library // will be made inheritance for the type of profiles 
-{			  // for the system of take and give shared list 
+class Library 
+{			  
 public: 
-	//Big 6
 	Library() = default;
 	~Library();
 	Library(const Library& other);
@@ -20,21 +19,18 @@ public:
 	int getAccountListFilled() const;
 	Book* getBookList() const;
 	Account* getAccountList() const;
-
-	//void sortAllBooks();
 	
 protected:
 
 	//char* _libraryName;
 	//int _libraryUniqueNumber; //later on for database of multiple libraries
 	int _bookListLenght = 8;
-	int _bookListFilled = -1;
+	int _bookListFilled = 0;
 	int _accountsListLenght = 8;
 	int _accountsListFilled = 0;
 						
-	Book* _booksList = new Book[_bookListLenght]; //in the late game it will be bad to use it like that
-												  //maybe in the book default i make the ptr with nullptr it wont be
-	Account* _accountsList = new Account[_accountsListLenght]; //isn't better to have other class handling this 
+	Book* _booksList = new Book[_bookListLenght]; 												  
+	Account* _accountsList = new Account[_accountsListLenght];
 
 	void free();
 	void moveFrom(Library&& other);
@@ -45,16 +41,3 @@ protected:
 
 void saveLibrary(const Library& library, std::ofstream& ofs);
 void loadLibrary(Library& library, std::ifstream& ifs);
-//void findBook(const Library& library, const Book& book);
-//void viewAllBooks(const Library& library);
-
-
-//books all
-//books find
-//books sort
-//books view
-//books add
-//books remove
-//users add
-//users remove
-

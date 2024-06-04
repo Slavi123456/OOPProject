@@ -2,6 +2,7 @@
 //#include "Library.h"
 //#include "Book.h"
 //#include "Account.h"
+#include "LibraryAdministrator.h"
 #include "ProgramManager.h"
 
 void testCaseBook() {
@@ -25,10 +26,10 @@ void testCaseBook() {
 	}
 	ifs >> books[1];
 
-	ifs.close(); //unit tests ??
+	ifs.close();
 
 	ofs << books[1];
-	ofs.close(); //unit tests ??
+	ofs.close(); 
 	
 	books[2] = books[1];
 	std::cout << "Is Book 1 same as Book 2: " << (books[2] == books[0]);
@@ -55,10 +56,10 @@ void testCaseAccount() {
 	}
 	ifs >> accounts[1];
 
-	ifs.close(); //unit tests ??
+	ifs.close(); 
 
 	ofs << accounts[1];
-	ofs.close(); //unit tests ??
+	ofs.close();
 
 	accounts[2] = accounts[1];
 	std::cout << "Is Account 1 same as Accounts 2: " << (accounts[2] == accounts[0]);
@@ -68,7 +69,7 @@ void testCaseAccount() {
 	std::cout << accounts[2];
 }
 void testCaseLibraryForBook() {
-	Library library;
+	LibraryAdministrato library;
 	library.addBook();
 	library.findBookInLibrary(0);
 
@@ -80,7 +81,7 @@ void testCaseLibraryForBook() {
 	library.viewAllBooksInLibrary();
 }
 void testCaseLibraryForAccount() {
-	Library library;
+	LibraryAdministrato library;
 	library.addUser();
 	library.addUser();
 
@@ -100,10 +101,10 @@ void testCaseProgramManager() {
 }
 
 int main(){
-	//testCaseLibraryForBook();
+	testCaseLibraryForBook();
 	//testCaseBook();
 	//testCaseAccount();
-	//testCaseLibraryForAccount();
+	testCaseLibraryForAccount();
 	//testCaseProgramManager();
 
 

@@ -3,51 +3,57 @@
 
 void LibraryAdministrato::addBook()
 {
-	if (_bookListFilled + 1 > _bookListLenght) //later it needs to be fixed
+	if (_bookListFilled + 1 > _bookListLenght)
 	{
 		std::cout << "Cannot add any more books";
 		return;
 	}
-	_bookListFilled++;
 	std::cin >> _booksList[_bookListFilled];
 	_booksList[_bookListFilled].SetUniqueLibraryNum(_bookListFilled);
+	_bookListFilled++;
 }
 
 void LibraryAdministrato::addBook(const Book& newBook)
 {
-	if (_bookListFilled + 1 > _bookListLenght) //later it needs to be fixed
+	if (_bookListFilled + 1 > _bookListLenght)
 	{
 		std::cout << "Cannot add any more books";
 		return;
 	}
-	_bookListFilled++;
 	_booksList[_bookListFilled] = newBook;
 	_booksList[_bookListFilled].SetUniqueLibraryNum(_bookListFilled);
+	_bookListFilled++;
 }
 
 void LibraryAdministrato::addBook(Book&& newBook)
 {
-	if (_bookListFilled + 1 > _bookListLenght) //later it needs to be fixed
+	if (_bookListFilled + 1 > _bookListLenght)
 	{
 		std::cout << "Cannot add any more books";
 		return;
 	}
-	_bookListFilled++;
 	_booksList[_bookListFilled] = newBook;
 	_booksList[_bookListFilled].SetUniqueLibraryNum(_bookListFilled);
+	_bookListFilled++;
 }
 
 void LibraryAdministrato::removeBook(int uniqueNumber)
 {
 	//try-catch for the uniqueNumber
 	_booksList[uniqueNumber].ClearBook();
+	if (uniqueNumber < _bookListFilled)
+	{
+		for (size_t i = uniqueNumber; i < _bookListFilled - 1; i++)
+		{
+			_booksList[i] = _booksList[i + 1];
+		}
+	}
 	_bookListFilled--;
-	
 }
 
 void LibraryAdministrato::addUser()
 {
-	if (_accountsListFilled + 1 > _accountsListLenght) //later it needs to be fixed
+	if (_accountsListFilled + 1 > _accountsListLenght)
 	{
 		std::cout << "Cannot add any more accounts";
 		return;
@@ -58,7 +64,7 @@ void LibraryAdministrato::addUser()
 
 void LibraryAdministrato::addUser(const Account& account)
 {
-	if (_accountsListFilled + 1 > _accountsListLenght) //later it needs to be fixed
+	if (_accountsListFilled + 1 > _accountsListLenght)
 	{
 		std::cout << "Cannot add any more accounts";
 		return;
@@ -77,4 +83,13 @@ void LibraryAdministrato::removeUser(const char* userName)
 	}
 	//throw for indx = - 1;
 	_accountsList[indexOfAccount].ClearAccount();
+
+	if (indexOfAccount < _accountsListFilled)
+	{
+		for (size_t i = indexOfAccount; i < _accountsListFilled - 1; i++)
+		{
+			_accountsList[i] = _accountsList[i + 1];
+		}
+	}
+	_accountsListFilled--;
 }
