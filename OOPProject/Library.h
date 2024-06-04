@@ -22,20 +22,9 @@ public:
 	Account* getAccountList() const;
 
 	//void sortAllBooks();
-	void addBook();
-	void addBook(const Book& newBook); //in Book copyContructor &/&&
-	void addBook(Book&& newBook); //in Book copyContructor &/&&
-	void removeBook(int uniqueNumber); //it needs sorting of pointers
-
-	void addUser();
-	void addUser(const Account& account);
-	void removeUser(const char* userName);
-	//void findBookInLibrary(const Book& book) const; //in Book operator ==/!=
-	void findBookInLibrary(int uniqueNumber) const;
-	void viewAllBooksInLibrary() const;
+	
 protected:
 
-private:
 	//char* _libraryName;
 	//int _libraryUniqueNumber; //later on for database of multiple libraries
 	int _bookListLenght = 8;

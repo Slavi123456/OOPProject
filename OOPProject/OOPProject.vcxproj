@@ -130,6 +130,8 @@
     <ClCompile Include="Account.cpp" />
     <ClCompile Include="Book.cpp" />
     <ClCompile Include="Library.cpp" />
+    <ClCompile Include="LibraryAdministrator.cpp" />
+    <ClCompile Include="LibraryProfile.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ProgramManager.cpp" />
   </ItemGroup>
@@ -137,6 +139,8 @@
     <ClInclude Include="Account.h" />
     <ClInclude Include="Book.h" />
     <ClInclude Include="Library.h" />
+    <ClInclude Include="LibraryAdministrator.h" />
+    <ClInclude Include="LibraryProfile.h" />
     <ClInclude Include="ProgramManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
