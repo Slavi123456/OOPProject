@@ -1,17 +1,8 @@
 #include "Library.h"
 #include <iostream>
 
-Library::Library()
-{
-	_bookListLenght = 8;
-	_bookListFilled = 0;
-	_accountsListLenght = 8;
-	_accountsListFilled = 0;
-
-	_booksList = new Book[_bookListLenght];
-	_accountsList = new Account[_accountsListLenght];
-}
-
+///////////////////////////////////////////////////////////////////////////////////////
+//BIG 6
 Library::~Library()
 {
 	delete[]_booksList;
@@ -20,11 +11,27 @@ Library::~Library()
 	delete[]_accountsList;
 	_accountsList = nullptr;
 }
+///////////////////////////////////////////////////////////////////////////////////////
+//GET/ SET FUNCTIONS
 
+///////////////////////////////////////////////////////////////////////////////////////
+//OTHER FUNCTIONS
 void Library::addBook()
 {
 	//condition for _bookListFilled + 1 >= _bookListLenght so resize
-	std::cin >> _booksList[_bookListFilled + 1];
+	_bookListFilled++;
+	std::cin >> _booksList[_bookListFilled];
+	_booksList[_bookListFilled].SetUniqueLibraryNum(_bookListFilled);
+
+}
+
+void Library::removeBook(int uniqueNumber)
+{
+	//try-catch for the uniqueNumber
+	//what does the delete operator does ///////////// does it calls the Destructor]
+	_booksList[uniqueNumber].ClearBook();
+	_bookListFilled--;
+	//needs rearenging the pointers
 }
 
 void Library::findBookInLibrary(int uniqueNumber) const
@@ -35,7 +42,7 @@ void Library::findBookInLibrary(int uniqueNumber) const
 
 void Library::viewAllBooksInLibrary() const
 {
-	for (size_t i = 0; i < _bookListFilled; i++)
+	for (size_t i = 0; i < _bookListFilled+1; i++)
 	{
 		std::cout << _booksList[i];
 	}

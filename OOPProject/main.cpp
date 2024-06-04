@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Library.h"
+#include "Book.h"
 
 //INPUT/OUTPUT TEST //Wants #include "Book.h"//
 void testCaseBook() {
@@ -30,10 +31,31 @@ void testCaseBook() {
 
 	outputDetailedBook(books[1]);
 }
+//ADD/FIND/OUTPUT ALL 
+void testCaseLibrary() {
+	Library library;
+	library.addBook();
+	library.findBookInLibrary(0);
 
+	library.addBook();
+
+	library.viewAllBooksInLibrary();
+}
+//REMOVE
+void testCaseLibraryRemove() {
+	Library library;
+	library.addBook();
+
+	library.addBook();
+	library.viewAllBooksInLibrary();
+	library.removeBook(1);
+
+	library.viewAllBooksInLibrary();
+}
 int main(){
-	/*Library library;
-	library.addBook();*/
-
+	//testCaseLibraryRemove();
+	testCaseBook();
+	
+	
 	return 0;
 }
